@@ -21,7 +21,7 @@ th.logtable, td.logtable {
     padding: 5px;
     text-align: left;
 }
-tr.logtable:hover {background-color: #f5f5f5}
+tr.logtable:hover {background-color: white}
 
 td.log_default {
 	color: grey;
@@ -43,4 +43,26 @@ td.log_warning {
 }
 td.log_error {
 	color: red;
+}
+
+.hidden_at_start {
+	display:none;
+}
+
+#log_div {
+	background-color: rgb(252,252,230);
+	max-height: 400px;
+	height: 400px;
+	overflow:auto;
+}
+
+#rdf_dump {
+	overflow:auto;
+	height: 100%;
+}
+
+#rdf_dump_div {
+	background-color: rgb(240,240,240);
+	max-height: 400px;
+	height: 400px;
 }

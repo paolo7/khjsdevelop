@@ -13,14 +13,32 @@
 <body>
 <h1 id="heading">Welcome</h1>
 
+<hr>
+
+<input id="open_log_button" type="button" value="View Log" onclick="open_log();" class="ui-button ui-widget ui-state-default ui-corner-all" role="button">
+<input id="close_log_button" type="button" value="Close Log" onclick="close_log();" class="hidden_at_start ui-button ui-widget ui-state-default ui-corner-all" role="button">
+<input id="open_rdf_dump_button" type="button" value="View RDF" onclick="open_rdf_dump();" class="ui-button ui-widget ui-state-default ui-corner-all" role="button">
+<input id="close_rdf_dump_button" type="button" value="Close RDF" onclick="close_rdf_dump();" class="hidden_at_start ui-button ui-widget ui-state-default ui-corner-all" role="button">
+
+<hr>
+
 <!-- LOG TABLE -->
-<table class="logtable" id="debuglog">
-<tr class="logtable">
-	<th class="logtable">Time</th>
-	<th class="logtable">Log</th>
-</tr>
-</table>
+<div id="log_div" class="hidden_at_start">
+	<table class="logtable" id="debuglog">
+	<tr class="logtable">
+		<th class="logtable">Time</th>
+		<th class="logtable">Log</th>
+	</tr>
+	</table>
+</div>
 <!-- END LOG TABLE -->
 
+<!-- RDF KB -->
+<div id="rdf_dump_wrapper" class="hidden_at_start">
+	<div id="rdf_dump_div">
+		<pre id="rdf_dump"></pre>
+	</div>
+</div>
+<!-- END RDF KB -->
 </body>
 </html>
