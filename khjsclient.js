@@ -7,12 +7,23 @@ var RSS = $rdf.Namespace("http://purl.org/rss/1.0/")
 var XSD = $rdf.Namespace("http://www.w3.org/TR/2004/REC-xmlschema-2-20041028/#dt-")
 var PROHOW = $rdf.Namespace("http://w3id.org/prohow#")
 
+// APPLICATIONS
+var load_editor = function(){
+	app_editor();
+	//load_application("editor.htm");
+}
+//var load_application = function(application){
+//	$.getScript(application);
+	//$("#main_span").load(application);
+//}
+//
+
 // LOG FUNCTIONS
 var log = function(text){
 	logc(text,"log_default");
 }
 var logc = function(text,type){
-	$("#debuglog").prepend("<tr class=\"logtable\"><td class=\"logtable\">"+(new Date().toISOString())+"</td><td class=\"logtable\, "+type+"\">"+text+"</td></tr>");
+	$("#debuglog").append("<tr class=\"logtable\"><td class=\"logtable\">"+(new Date().toISOString())+"</td><td class=\"logtable\, "+type+"\">"+text+"</td></tr>");
 }
 var print_dataset = function(){
 	$("#rdf_dump").html();
@@ -88,7 +99,10 @@ var close_rdf_dump = function(){
 }
 //////
 
-
+var initialise_jquery_ui = function(){
+	$("input[type=button]").button();
+	$(".hidden_at_start").hide();
+}
 $(function(){ 
 // start on dom ready
 if(typeof initp.printlog !== 'undefined' && initp.printlog){
@@ -100,12 +114,13 @@ if(typeof initp.printlog !== 'undefined' && initp.printlog){
 		}
 	}
 }
-
+initialise_jquery_ui();
 // DATA FETCHING
 
 // tries to load the data directly. 
 // If it fails, for example because of access control restrictions, and if a proxy url is specified, it will try loading the resource from 'proxy'+'url'
 var fetch_data = function(url, fetcher,callback){
+	// Turtle and RDF/XML parsing
 	log("Fetching data from "+url+".");
 	var success = false;
 	try {
@@ -121,6 +136,12 @@ var fetch_data = function(url, fetcher,callback){
 	catch(err){
 		logc("Fetching data from "+url+" FAILED.","log_error");
 	}
+	// RDFa parsing
+	$.get( initp.proxy+url, {} )
+		.done(function( data ) {
+			
+			$rdf.parse(data, kb, url, 'text/html');
+	});
 };
 //////
 
@@ -132,7 +153,7 @@ var test = function(){
 	$rdf.fetcher = null;
 	kb.fetcher = null;
 	var results = "";
-	var q = $rdf.SPARQLToQuery("SELECT ?a ?b ?c WHERE { ?a ?b ?c . } LIMIT 5 ", false, kb);
+	var q = $rdf.SPARQLToQuery("SELECT DISTINCT ?a ?b ?c WHERE { ?a ?b ?c . } LIMIT 5 ", false, kb);
 	var result = kb.query(q, function(result,results) {
 		results += "AAAAA"+ result['?b'].uri ? result['?b'].uri : result['?b'].toString();
         results += " -->"+(result['?c']) ? result['?c'].value : '?';

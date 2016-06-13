@@ -1,0 +1,38 @@
+.largetextarea {
+	width:850px;
+	resize:vertical;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+	}
+.de_emph {
+	color = grey;
+}
+
+#rdfa_editor_source_box {
+	overflow:auto;
+	height: 100%;
+	background-color: rgb(240,240,240);
+}
+
+#rdfa_editor_source {
+	max-height: 400px;
+	height: 400px;
+}
+
+.dbo_abstract {
+	background-color: #e6ffe6;
+	display: block;
+}
+.prohow_requirements {
+	background-color: #e6f2ff;
+	display: block;
+}
+.prohow_steps {
+	background-color: #ffffcc;
+	display: block;
+}
+.prohow_methods {
+	background-color: #ffebcc;
+	display: block;
+}

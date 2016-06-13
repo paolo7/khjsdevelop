@@ -1,5 +1,11 @@
 ## Client
 
+### Supported Data Formats
+
+At the moment the client can read Turtle, RDF/XML and RDFa files.
+
+Missing data formats: JSON-LD, SPARQL endpoints, LD-Fragments.
+
 ## Server
 
 A number of optional server functionalities are included.
