@@ -10,13 +10,14 @@ var PROHOW = $rdf.Namespace("http://w3id.org/prohow#")
 // APPLICATIONS
 var load_editor = function(){
 	app_editor();
-	//load_application("editor.htm");
 }
-//var load_application = function(application){
-//	$.getScript(application);
-	//$("#main_span").load(application);
-//}
-//
+var load_viewer = function(){
+	app_viewer();
+}
+var refresh_main_body = function(html_content) {
+	$("#main_span").html(html_content);
+	initialise_jquery_ui();
+}
 
 // LOG FUNCTIONS
 var log = function(text){
@@ -103,6 +104,52 @@ var initialise_jquery_ui = function(){
 	$("input[type=button]").button();
 	$(".hidden_at_start").hide();
 }
+
+// DATA FETCHING
+
+var uniquify_url = function(url){
+	//return url;
+	var unique_string = "t_no_cache="+new Date().getTime();
+	if(url.indexOf("?") < 0) return url+"?"+unique_string;
+	else if(url.indexOf("?") == unique_string.length-1) return url+unique_string;
+	else return url+"&"+unique_string;
+}
+// tries to load the data directly. 
+// If it fails, for example because of access control restrictions, and if a proxy url is specified, it will try loading the resource from 'proxy'+'url'
+
+var fetch_data = function(url, fetcher,callback){
+	try {
+	base_url = url;
+	url = uniquify_url(url); //used to remove cache issues
+	// Turtle and RDF/XML parsing
+	log("Fetching data from "+url+".");
+	var success = false;
+	
+		fetcher.nowOrWhenFetched(url, function(ok, body, xhr) {
+			if (!ok) {
+				logc("Fetching data from "+url+" FAILED ("+xhr.status+").","log_error");
+			} else {
+				logc("Fetching data from "+url+" SUCCEEDED ("+xhr.status+").","log_success");
+				if(typeof callback !== 'undefined') callback();
+			}
+		});
+		// RDFa parsing
+		$.get( initp.proxy+url, {} )
+			.done(function( data ) {
+			$rdf.parse(data, kb, base_url, 'text/html', callback);
+		});
+		// SPARQL endpoints
+	}
+	catch(err){
+		logc("Fetching data from "+url+" FAILED.","log_error");
+	}
+	for(var i =0; i < initp.seed_endpoints.length; i++){
+		
+	}
+	
+};
+//////
+
 $(function(){ 
 // start on dom ready
 if(typeof initp.printlog !== 'undefined' && initp.printlog){
@@ -115,35 +162,8 @@ if(typeof initp.printlog !== 'undefined' && initp.printlog){
 	}
 }
 initialise_jquery_ui();
-// DATA FETCHING
+$(".hidden_only_at_start").hide();
 
-// tries to load the data directly. 
-// If it fails, for example because of access control restrictions, and if a proxy url is specified, it will try loading the resource from 'proxy'+'url'
-var fetch_data = function(url, fetcher,callback){
-	// Turtle and RDF/XML parsing
-	log("Fetching data from "+url+".");
-	var success = false;
-	try {
-		fetcher.nowOrWhenFetched(url, function(ok, body, xhr) {
-			if (!ok) {
-				logc("Fetching data from "+url+" FAILED ("+xhr.status+").","log_error");
-			} else {
-				logc("Fetching data from "+url+" SUCCEEDED ("+xhr.status+").","log_success");
-				if(typeof callback !== 'undefined') callback();
-			}
-		});
-	}
-	catch(err){
-		logc("Fetching data from "+url+" FAILED.","log_error");
-	}
-	// RDFa parsing
-	$.get( initp.proxy+url, {} )
-		.done(function( data ) {
-			
-			$rdf.parse(data, kb, url, 'text/html');
-	});
-};
-//////
 
 
 //////////////////

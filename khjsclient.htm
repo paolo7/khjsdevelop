@@ -11,14 +11,17 @@
 	<link rel="stylesheet" href="css/log.css" >
 	<link rel="stylesheet" href="css/app.css" >
     <script src="lib/rdflib.js" type="text/javascript"></script>
+	<script src="lib/jit.js" type="text/javascript"></script>
     <script src="khjsclient.js" type="text/javascript" ></script>
 	<script src="app_editor.js" type="text/javascript"></script>
+	<script src="app_viewer.js" type="text/javascript"></script>
 	<script src="util.js" type="text/javascript" ></script>
 </head>
 <body>
 <h1 id="heading">Welcome</h1>
 
-<input id="load_editor" type="button" value="EDITOR" onclick="load_editor();" class="jqui1" role="button">
+<input id="load_viewer" type="button" value="VIEWER" onclick="load_viewer();" role="button">
+<input id="load_editor" type="button" value="EDITOR" onclick="load_editor();" role="button">
 
 <hr>
 <!-- ########## MAIN HTML ELEMENTS ########## -->
@@ -29,14 +32,14 @@
 <hr>
 
 <input id="open_log_button" type="button" value="View Log" onclick="open_log();" role="button">
-<input id="close_log_button" type="button" value="Close Log" onclick="close_log();" class="hidden_at_start" role="button">
+<input id="close_log_button" type="button" value="Close Log" onclick="close_log();" class="hidden_only_at_start" role="button">
 <input id="open_rdf_dump_button" type="button" value="View RDF" onclick="open_rdf_dump();" role="button">
-<input id="close_rdf_dump_button" type="button" value="Close RDF" onclick="close_rdf_dump();" class="hidden_at_start" role="button">
+<input id="close_rdf_dump_button" type="button" value="Close RDF" onclick="close_rdf_dump();" class="hidden_only_at_start" role="button">
 
 <hr>
 
 <!-- LOG TABLE -->
-<div id="log_div" class="hidden_at_start">
+<div id="log_div" class="hidden_only_at_start">
 	<table class="logtable" id="debuglog">
 	<tr class="logtable">
 		<th class="logtable">Time</th>
@@ -47,7 +50,7 @@
 <!-- END LOG TABLE -->
 
 <!-- RDF KB -->
-<div id="rdf_dump_wrapper" class="hidden_at_start">
+<div id="rdf_dump_wrapper" class="hidden_only_at_start">
 	<div id="rdf_dump_div">
 		<pre id="rdf_dump"></pre>
 	</div>

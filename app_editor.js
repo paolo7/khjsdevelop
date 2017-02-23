@@ -6,9 +6,68 @@ var display_parsed_instructions = function(){
 	$("#rdfa_editor_source_box").html(escapeHtml(parsed_instructions));
 }
 	
+var extract_links = function(label,links_obj){
+	var start = label.indexOf("[");
+	var end = label.indexOf("]");
+	if(start >= 0 && end > 0 && start < end){
+		link_string = label.substring(start+1,end);
+		label = (label.substring(0,start)+label.substring(end+1,label.length)).trim();
+		parse_editor_link(link_string,links_obj);
+		return extract_links(label,links_obj);
+	} else return label;
+}
+
+var parse_editor_link = function(link_string,links_obj){
+	var type = "o";
+	var char_to_remove = 0;
+	if(link_string.toLowerCase().indexOf("step") == 0) {
+		char_to_remove = 4;
+		type = "s";
+	}
+	if(link_string.toLowerCase().indexOf("requires") == 0) {
+		char_to_remove = 8;
+		type = "r";
+	}
+	if(link_string.toLowerCase().indexOf("method") == 0) {
+		char_to_remove = 6;
+		type = "m";
+	}
+	if(type != "o") {
+		var sanitised_line = sanitise_line(link_string.substring(char_to_remove));
+		if(sanitised_line.length>0){
+			links_obj.push({
+				type: type,
+				uri: sanitised_line
+				});
+		}
+	}
+}
+
+var generate_rdfa_links_list = function(links_list){
+	var html_rdfa = "";
+	if(links_list.length > 0){
+				html_rdfa += "<ul>";
+				for(var j = 0; j < links_list.length; j++){
+					var link_property = "has_step";
+					var link_property_label = "Has step: ";
+					if(links_list[j].type == "r") {
+						link_property = "requires";
+						link_property_label = "Requires: ";
+					}
+					if(links_list[j].type == "m") {
+						link_property = "has_method";
+						link_property_label = "Has method: ";
+					}
+					html_rdfa += '<li>'+link_property_label+'<a property="prohow:'+link_property+'" href="'+links_list[j].uri+'">'+links_list[j].uri+'</a></li>';
+				}
+				html_rdfa += "</ul>";
+			}
+	return html_rdfa;
+}
+
 var parse_instructions = function(){
 	var main_url = generate_unique_uri();
-	var html_rdfa = '<span prefix="prohow: http://w3id.org/prohow# dbo: http://dbpedia.org/ontology/" typeof="prohow:task prohow:instruction_set" resource="'+main_url+'">\n<h3>';
+	var html_rdfa = '<span prefix="prohow: http://w3id.org/prohow# dbo: http://dbpedia.org/ontology/" typeof="prohow:task prohow:instruction_set" resource="">\n<h3>';
 	var title = $("#editor_instructions_title").val();
 	if(title.length > 0){
 		html_rdfa += "<span property=\"rdfs:label\">"+title+"</span>";
@@ -57,23 +116,36 @@ var parse_instructions = function(){
 	if(requirements.length > 0){
 		html_rdfa += "<span class=\"prohow_requirements\"><p>Requirements:<ul>\n";
 		for (i = 0; i < requirements.length; i++) {
-			html_rdfa += '<li property="prohow:requires" resource="'+main_url+'r'+i+'" typeof="prohow:task"><span property="rdfs:label">'+requirements[i]+'</span></li>\n';
+			var req_links = [];
+			var req_label = extract_links(requirements[i],req_links);
+			html_rdfa += '<li property="prohow:requires" resource="'+main_url+'r'+i+'" typeof="prohow:task"><span property="rdfs:label">'+req_label+'</span>';
+			html_rdfa += generate_rdfa_links_list(req_links);
+			html_rdfa += '</li>\n';
 		}
 		html_rdfa += "</ul></p></span>\n";
 	}
 	if(steps.length > 0){
 		html_rdfa += "<span class=\"prohow_steps\"><p>Steps:<ol>\n";
 		for (i = 0; i < steps.length; i++) {
+			var step_links = [];
+			var step_label = extract_links(steps[i],step_links);
 			html_rdfa += '<li property="prohow:has_step" resource="'+main_url+'s'+i+'" typeof="prohow:task">';
 			if(i>0) html_rdfa += '<span property="prohow:requires" resource="'+main_url+'s'+(i-1)+'"></span>';
-			html_rdfa += '<span property="rdfs:label">'+steps[i]+'</span></li>\n';
+			html_rdfa += '<span property="rdfs:label">'+step_label+'</span>\n';
+			html_rdfa += generate_rdfa_links_list(step_links);
+			html_rdfa += '</li>\n';
+			
 		}
 		html_rdfa += "</ol></p></span>\n";
 	}
 	if(methods.length > 0){
 		html_rdfa += "<span class=\"prohow_methods\"><p>Methods:<ul>\n";
 		for (i = 0; i < methods.length; i++) {
-			html_rdfa += '<li property="prohow:has_method" resource="'+main_url+'m'+i+'" typeof="prohow:task"><span property="rdfs:label">'+methods[i]+'</span></li>\n';
+			var met_links = [];
+			var met_label = extract_links(methods[i],met_links);
+			html_rdfa += '<li property="prohow:has_method" resource="'+main_url+'m'+i+'" typeof="prohow:task"><span property="rdfs:label">'+met_label+'</span>';
+			html_rdfa += generate_rdfa_links_list(met_links);
+			html_rdfa += '</li>\n';
 		}
 		html_rdfa += "</ul></p></span>\n";
 	}
@@ -95,8 +167,7 @@ var sanitise_line = function(line){
 }
 
 var app_editor = function(){
-	$("#main_span").html(
-
+	refresh_main_body(
 '<div style="text-align:center;">'+
 '<h3>Editor</h3><p>Write your instructions here:</p>'+
 '<form id="editor_instructions_form" name="editor_instructions_form">'+
@@ -121,8 +192,6 @@ var app_editor = function(){
 '</div>'+
 '<span id="rdfa_editor_display" class="hidden_at_start"></span>'+
 '<span id="rdfa_editor_source" class="hidden_at_start"><pre id="rdfa_editor_source_box"></pre></span>'
-
 	);
-	initialise_jquery_ui();
 }
 
