@@ -1,6 +1,6 @@
 # RDFa How-To Instructions Editor and Visualiser Client
 
-A Javascript Editor and Visualisation Client for Instructional Web Pages using [RDFa](https://rdfa.info/) and [PROHOW](https://w3id.org/prohow/). 
+A Javascript Editor and Visualisation Client for Instructional Web Pages using [RDFa](https://rdfa.info/) and [PROHOW](https://w3id.org/prohow/). This client allows users to generate HTML+RDFa web documents that represent instructions (following the PROHOW data model) and it allows them to access these and other RDF resources and explore them in a graphical interface.
 
 The resources in this repository are published under the [Creative Commons Attribution-NonCommercial 3.0 licence](https://creativecommons.org/licenses/by-nc/3.0/).
 
@@ -12,6 +12,8 @@ The resources in this repository are published under the [Creative Commons Attri
 
 ## Client
 
+The RDFa How-To Instructions Editor and Visualiser Client is a collection of two Javascript applications, the Editor and the Visualiser, which can be accessed through a Web-based HTML interface. To access this interface, after downloading this repository simply open the khjsclient.htm file with a Javascript enabled browser. 
+
 ### Supported Data Formats
 
 At the moment the client can parse Turtle, RDF/XML and RDFa files. It cannot currently parse JSON-LD, SPARQL endpoints and LD-Fragments.
@@ -20,7 +22,7 @@ At the moment the client can parse Turtle, RDF/XML and RDFa files. It cannot cur
 
 The editor can be accessed by loading the khjsclient.htm file in a browser and clicking on the EDITOR button.
 
-The editor allows to parse instructions in a semi-structured natural language text into an RDFa+HTML representation. See the tutorial below for an example on how to use it.
+The editor allows to parse instructions in a semi-structured natural language text into an RDFa+HTML representation following the [PROHOW](https://w3id.org/prohow/) data model. See the tutorial below for an example on how to use it.
 
 The editor is divided into two fields.
 
