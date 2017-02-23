@@ -1,3 +1,23 @@
+# RDFa How-To Instructions Editor and Visualiser Client
+
+A Javascript Editor and Visualisation Client for Instructional Web Pages using [RDFa](https://rdfa.info/) and [PROHOW](https://w3id.org/prohow/)
+
+
+## Client
+
+### Supported Data Formats
+
+At the moment the client can parse Turtle, RDF/XML and RDFa files. It cannot currently parse JSON-LD, SPARQL endpoints and LD-Fragments.
+
+### Editor
+
+The editor can be accessed by loading the khjsclient.htm file in a browser and clicking on the EDITOR button.
+
+The editor allows to parse instructions in a semi-structured natural language text into an RDFa+HTML representation. See the tutorial below for an example on how to use it.
+
+The editor is divided into two fields.
+
+The first field is the title field, where you can enter the title of your set of instructions.
 
 The second field is the description box, where you can enter information on how to accomplish these instructions.
 
@@ -72,3 +92,71 @@ Copy this code and paste it into an HTML file published on a server. In this exa
 ### Create a set of instructions linked to another one
 
 Load the editor page and insert an instruction description as follows:
+
+Insert the following description in the title box:
+```
+How to prepare a pancake
+```
+
+Insert the following description in the text area:
+```
+These instructions will tell you how to make a delicious pancake.
+
+Requires: Eggs
+Requires: Milk
+Requires: Flour
+
+
+Step 1: Prepare the pancake mix [method http://paolopareti.uk/dataset/simple/pancake_mix.htm]
+Step 2: Pour the mix in a hot pan
+Step 3: Cook until golden
+
+Method: Alternatively, make a pancake using pancake mix
+```
+
+Click on the 'Parse into RDF' button at the bottom of the page. As before, the HTML+RDFa code will be displayed, along with the visualisation of it. This code is now linking to the page we previously created. If you have published it on a different URL, adjust the above code accordingly. 
+
+Copy this last code and paste it into an HTML file published on a server. In this example, the file will be uploaded to URL:  `http://paolopareti.uk/dataset/simple/pancake.htm`.
+
+
+## Visualisation Tutorial
+
+The visualisator can be accessed by loading the khjsclient.htm file in a browser and clicking on the VIEW button.
+
+In the viewer search box, add the last page you have created. In this example it is  `http://paolopareti.uk/dataset/simple/pancake.htm`. Click on 'Search'. 
+
+Click on the instruction 'How to prepare a pancake' that should have appeared. 
+
+Click on 'Prepare the pancake mix' to expand it. A new box should appear on the left. Click on this box to retrieve the linked set of instructions. 
+
+Once this box is selected, click on it AGAIN to expand it. The information retrieved from the second set of instruction should now be visualised in the same graphical representation.
+
+# Notes
+
+## Note on rdflib.js
+
+The rdflib.js library used has been modified. The main modifications are as follows:
+
+* Modified to allow non-https proxies:
+```
+  this.proxyIfNecessary = function (uri) {
+    if (typeof tabulator !== 'undefined' && tabulator.isExtension) return uri // Extenstion does not need proxy
+    // browser does 2014 on as https browser script not trusted
+    // If the web app origin is https: then the mixed content rules
+    // prevent it loading insecure http: stuff so we need proxy.
+    if ($rdf.Fetcher.crossSiteProxyTemplate &&
+        (typeof document !== 'undefined') &&
+        document.location // &&
+        // ('' + document.location).slice(0, 6) === 'https:' && // origin is secure
+        // uri.slice(0, 5) === 'http:'
+		) { // requested data is not
+      return $rdf.Fetcher.crossSiteProxyTemplate.replace('{uri}', encodeURIComponent(uri))
+    }
+    return uri
+  }
+```
+
+
+
+
+
