@@ -1,6 +1,8 @@
 # RDFa How-To Instructions Editor and Visualiser Client
 
-A Javascript Editor and Visualisation Client for Instructional Web Pages using [RDFa](https://rdfa.info/) and [PROHOW](https://w3id.org/prohow/)
+A Javascript Editor and Visualisation Client for Instructional Web Pages using [RDFa](https://rdfa.info/) and [PROHOW](https://w3id.org/prohow/). 
+
+The resources in this repository are published under the [Creative Commons Attribution-NonCommercial 3.0 licence](https://creativecommons.org/licenses/by-nc/3.0/).
 
 * [What it is and what it does](https://github.com/paolo7/khjsdevelop#what-it-is-and-what-it-does)
 * [Tutorial](https://github.com/paolo7/khjsdevelop#tutorial)
