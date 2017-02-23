@@ -98,7 +98,7 @@ Click on the 'Parse into RDF' button at the bottom of the page.
 An HTML visualisation of the instructions will appear under the form. Under this visualisation, the HTML+RDFa code for these instructions will be displayed.
 Copy this code and paste it into an HTML file published on a server. In this example, the file will be uploaded to URL:  `http://paolopareti.uk/dataset/simple/pancake_mix.htm`.
 
-<p align="center"><div style="text-align:center"><img src="https://github.com/paolo7/khjsdevelop/blob/master/example/editor.jpg" width="420"></div></p>
+<p align="center"><div style="text-align:center"><img src="https://github.com/paolo7/khjsdevelop/blob/master/example/editor.jpg" width="520"></div></p>
 
 ### Create a set of instructions linked to another one
 
@@ -142,7 +142,7 @@ Click on 'Prepare the pancake mix' to expand it. A new box should appear on the 
 
 Once this box is selected, click on it AGAIN to expand it. The information retrieved from the second set of instruction should now be visualised in the same graphical representation.
 
-<p align="center"><div style="text-align:center"><img src="https://github.com/paolo7/khjsdevelop/blob/master/example/visualiser.jpg" width="420"></div></p>
+<p align="center"><div style="text-align:center"><img src="https://github.com/paolo7/khjsdevelop/blob/master/example/viewer.jpg" width="520"></div></p>
 
 # Notes
 
