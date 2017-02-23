@@ -2,7 +2,7 @@
 var app_viewer = function() {
 		refresh_main_body(
 '<div style="text-align:center;">'+
-'<h3>Editor</h3><p>Load instructions from a URI or URL:</p>'+
+'<h3>Viewer</h3><p>Load instructions from a URI or URL:</p>'+
 '<input type="text" id="viewer_search_input" name="viewer_search_input" class="largetextarea" placeholder="Enter URI / URL here" value="http://paolopareti.uk/dataset/simple/sample_instructions.htm" required></input><br>'+
 '</br><input id="viewer_load_b" type="button" value="Search" onclick="search_and_display();" /></br>'+
 '</div>'+
