@@ -2,6 +2,11 @@
 
 A Javascript Editor and Visualisation Client for Instructional Web Pages using [RDFa](https://rdfa.info/) and [PROHOW](https://w3id.org/prohow/)
 
+* [What it is and what it does](https://github.com/paolo7/khjsdevelop#what-it-is-and-what-it-does)
+* [Tutorial](https://github.com/paolo7/khjsdevelop#tutorial)
+* [Notes](https://github.com/paolo7/khjsdevelop#notes)
+
+# What it is and what it does
 
 ## Client
 
