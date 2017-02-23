@@ -1,4 +1,4 @@
-# RDFa How-To Instructions Editor and Visualiser Client
+# Web-Based Editor and Visualiser for Distributed Linked-Data Instructions 
 
 A Javascript Editor and Visualisation Client for Instructional Web Pages using [RDFa](https://rdfa.info/) and [PROHOW](https://w3id.org/prohow/). This client allows users to generate HTML+RDFa web documents that represent instructions (following the PROHOW data model) and it allows them to access these and other RDF resources and explore them in a graphical interface.
 
