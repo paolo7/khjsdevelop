@@ -9,6 +9,10 @@ var generate_unique_code = function(text){
 }
 var generate_unique_uri = function(text){
 	uri_mint_count++;
+	return "#i="+uri_mint_count+"&c="+generate_unique_code(text);
+}
+var generate_unique_uri_static = function(text){
+	uri_mint_count++;
 	return window.location+"#i="+uri_mint_count+"&c="+generate_unique_code(text);
 }
 
