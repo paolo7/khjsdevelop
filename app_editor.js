@@ -58,7 +58,7 @@ var generate_rdfa_links_list = function(links_list){
 						link_property = "has_method";
 						link_property_label = "Has method: ";
 					}
-					html_rdfa += '<li>'+link_property_label+'<a property="prohow:'+link_property+'" href="'+links_list[j].uri+'">'+links_list[j].uri+'</a></li>';
+					html_rdfa += '<li>'+link_property_label+'<a property="prohow:'+link_property+'" href="'+links_list[j].uri+'#main">'+links_list[j].uri+'</a></li>';
 				}
 				html_rdfa += "</ul>";
 			}
@@ -67,7 +67,7 @@ var generate_rdfa_links_list = function(links_list){
 
 var parse_instructions = function(){
 	var main_url = generate_unique_uri();
-	var html_rdfa = '<span prefix="prohow: http://w3id.org/prohow# dbo: http://dbpedia.org/ontology/" typeof="prohow:task prohow:instruction_set" resource="">\n<h3>';
+	var html_rdfa = '<span prefix="prohow: http://w3id.org/prohow# dbo: http://dbpedia.org/ontology/" typeof="prohow:task prohow:instruction_set" resource="#main">\n<h3>';
 	var title = $("#editor_instructions_title").val();
 	if(title.length > 0){
 		html_rdfa += "<span property=\"rdfs:label\">"+title+"</span>";
