@@ -56,7 +56,7 @@ IMPORTANT NOTE: When following links between different documents, an unnamed box
 Although this client is supposed to be self-contained, some server functionalities might be needed to overcome certain internet limitations.
 
 ### PhP Proxy
-The process of dynamically loading distributed data files might be blocked by the browser becayse of same origin policy. To prevent these restrictions [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) is used. Resources that do not implement CORS can still be retrieved through a PhP proxy. One possible implementation of this proxy is provided. It is a modified version of the [PhD Simple Proxy](http://benalman.com/projects/php-simple-proxy/).
+The process of dynamically loading distributed data files might be blocked by the browser because of same origin policy. To prevent these restrictions [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) is used. Resources that do not implement CORS can still be retrieved through a PhP proxy. One possible implementation of this proxy is provided. It is a modified version of the [PhD Simple Proxy](http://benalman.com/projects/php-simple-proxy/).
 
 NOTE: the configuration file config.js is initialised with the server-side scripts currently hosted on http://paolopareti.uk/ HOWEVER these scripts are only meant as examples and might become unavailable at any moment. To ensure that your copy of this program runs reliably it is strongly advised that you host those scripts on your own server and you update the config.js file accordingly. 
 
